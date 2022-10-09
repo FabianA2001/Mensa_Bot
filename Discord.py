@@ -8,12 +8,14 @@ from datetime import datetime as dt
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.default())
 hour = 8
 minute = 36
+block_day = ["saturday", "sunday"]
 
 
 @discordTasks.loop(minutes=1)
 async def messageDaily():
+    if dt.now().strftime("%A").lower() in block_day:
+        return
     if dt.now().hour == hour and dt.now().minute == minute:
-
         await dm_task()
 
 
