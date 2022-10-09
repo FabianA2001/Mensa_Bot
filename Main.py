@@ -1,5 +1,6 @@
 from Meals import Meals
-from google_images import search
+
+# from google_images import search
 
 
 def show(meals):

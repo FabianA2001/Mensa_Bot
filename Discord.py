@@ -1,5 +1,5 @@
 import Token
-
+from Meals import Meals
 import discord
 from discord.ext import commands
 from discord.ext import tasks as discordTasks
@@ -7,7 +7,7 @@ from datetime import datetime as dt
 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.default())
 hour = 8
-minute = 36
+minute = 0
 block_day = ["saturday", "sunday"]
 
 
@@ -19,14 +19,42 @@ async def messageDaily():
         await dm_task()
 
 
+def generate_string(meals):
+    result = ""
+    for meal in meals:
+        result += f"{meal.name} --- {meal.price}€\n"
+    return result
+
+
 async def dm_task():
     await bot.wait_until_ready()
-    channel = await bot.fetch_user(Token.ID)
-    if channel == None:
+    user = await bot.fetch_user(Token.ID)
+    if user == None:
         print("Das ist die falsche channel id")
     else:
+        meals = Meals()
+        embed = discord.Embed(
+            title="Mensa 1 - Braunschweig",
+            description=f"{dt.now().strftime('%d.%m.%Y')}",
+            color=0xFF5733,
+        )
 
-        await channel.send("Test")
+        embed.add_field(
+            name="__Hauptgericht__",
+            value=generate_string(meals.main_meal),
+            inline=False,
+        )
+        embed.add_field(
+            name="__Beilage__",
+            value=generate_string(meals.supplement_meal),
+            inline=False,
+        )
+        embed.add_field(
+            name="__Nachtisch__",
+            value=generate_string(meals.dessert_meal),
+            inline=False,
+        )
+        await user.send(embed=embed)
 
 
 @bot.event
