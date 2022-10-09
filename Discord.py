@@ -48,25 +48,26 @@ def add_fields_to_embed(embed, id):
 
 async def dm_task():
     await bot.wait_until_ready()
-    user = await bot.fetch_user(Token.ID)
-    if user == None:
-        print("Das ist die falsche channel id")
-    else:
-        embed = discord.Embed(
-            title="Mensa 2 - Braunschweig",
-            description=f"{dt.now().strftime('%d.%m.%Y')}",
-            color=0x32A852,
-        )
-        embed = add_fields_to_embed(embed=embed, id=105)
-        await user.send(embed=embed)
+    for id in Token.IDS:
+        user = await bot.fetch_user(id)
+        if user == None:
+            print("Das ist die falsche channel id")
+        else:
+            embed = discord.Embed(
+                title="Mensa 2 - Braunschweig",
+                description=f"{dt.now().strftime('%d.%m.%Y')}",
+                color=0x32A852,
+            )
+            embed = add_fields_to_embed(embed=embed, id=105)
+            await user.send(embed=embed)
 
-        embed = discord.Embed(
-            title="Mensa 1 - Braunschweig",
-            description=f"{dt.now().strftime('%d.%m.%Y')}",
-            color=0xFF5733,
-        )
-        embed = add_fields_to_embed(embed=embed, id=101)
-        await user.send(embed=embed)
+            embed = discord.Embed(
+                title="Mensa 1 - Braunschweig",
+                description=f"{dt.now().strftime('%d.%m.%Y')}",
+                color=0xFF5733,
+            )
+            embed = add_fields_to_embed(embed=embed, id=101)
+            await user.send(embed=embed)
 
 
 @bot.event
