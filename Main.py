@@ -19,5 +19,7 @@ def show(meals):
 
 
 if __name__ == "__main__":
-    meals = Meals()
-    show(meals)
+    print("run Discord.py")  # cant change the structure of discord.py
+
+    # meals = Meals()
+    # show(meals)

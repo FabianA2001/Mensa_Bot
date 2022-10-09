@@ -25,12 +25,16 @@ async def dm_task():
     if channel == None:
         print("Das ist die falsche channel id")
     else:
+
         await channel.send("Test")
 
 
 @bot.event
 async def on_ready():
-    messageDaily.start()
+    # messageDaily.start()
+    await dm_task()
 
 
 bot.run(Token.DISCORD_TOKEN)
+
+# https://plainenglish.io/blog/send-an-embed-with-a-discord-bot-in-python
