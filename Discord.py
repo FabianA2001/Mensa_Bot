@@ -6,12 +6,13 @@ from discord.ext import tasks as discordTasks
 from datetime import datetime as dt
 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.default())
-hour = 22
+hour = 8
+minute = 36
 
 
-@discordTasks.loop(minutes=10)
+@discordTasks.loop(minutes=1)
 async def messageDaily():
-    if dt.now().hour == hour:
+    if dt.now().hour == hour and dt.now().minute == minute:
 
         await dm_task()
 
@@ -30,4 +31,4 @@ async def on_ready():
     messageDaily.start()
 
 
-bot.run(Token.TOKEN)
+bot.run(Token.DISCORD_TOKEN)
