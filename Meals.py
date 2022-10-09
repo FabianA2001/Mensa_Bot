@@ -9,7 +9,8 @@ class Meal:
 
 
 class Meals:
-    def __init__(self) -> None:
+    def __init__(self, id) -> None:
+        self.id = id
         self.main_meal = []
         self.supplement_meal = []
         self.dessert_meal = []
@@ -18,7 +19,7 @@ class Meals:
     def get_data(self):
         respond = requests.get(
             # url=f"https://sls.api.stw-on.de/v1/location/101/menu/{datetime.date.today()}"
-            url=f"https://sls.api.stw-on.de/v1/location/101/menu/2022-10-11"
+            url=f"https://sls.api.stw-on.de/v1/location/{self.id}/menu/2022-10-11"
         )
         meals = respond.json()["meals"]
 
@@ -34,5 +35,5 @@ class Meals:
 
 
 if __name__ == "__main__":
-    x = Meals()
+    x = Meals(2)
     print(x.get_data())
