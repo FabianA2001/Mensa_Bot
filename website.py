@@ -19,6 +19,9 @@ def generate_site():
         string = ""
 
         meals = Meals(101, date)
+        if meals.main_meal == []:
+            return ""
+
         if day == None:
             string += f"<h1>Mensa 1 am {date.strftime('%d.%m.%Y')} ({date.strftime('%A')})</h1>"
         else:
@@ -29,16 +32,12 @@ def generate_site():
         string += generate_substring(meals=meals.supplement_meal)
         string += headline("Nachtisch")
         string += generate_substring(meals=meals.dessert_meal)
+        string += "<hr><br><br><br><br>"
         return string
-
-    def line():
-        return "<hr><br><br><br><br>"
 
     string = "<br><br>"
     today = datetime.date.today()
-    for day in range(6):
-        if day != 0:
-            string += line()
+    for day in range(4):
         if day == 0:
             string += generate_string(today + datetime.timedelta(days=day), "Heute")
             continue
