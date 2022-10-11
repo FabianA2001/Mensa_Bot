@@ -9,18 +9,23 @@ class Meal:
 
 
 class Meals:
-    def __init__(self, id) -> None:
+    def __init__(self, id, date=None) -> None:
         self.id = id
         self.main_meal = []
         self.supplement_meal = []
         self.dessert_meal = []
+        self.date = date
         self.get_data()
 
     def get_data(self):
-        respond = requests.get(
-            # url=f"https://sls.api.stw-on.de/v1/location/101/menu/{datetime.date.today()}"
-            url=f"https://sls.api.stw-on.de/v1/location/{self.id}/menu/2022-10-11"
-        )
+        if self.date == None:
+            respond = requests.get(
+                url=f"https://sls.api.stw-on.de/v1/location/{self.id}/menu/{datetime.date.today()}"
+            )
+        else:
+            respond = requests.get(
+                url=f"https://sls.api.stw-on.de/v1/location/{self.id}/menu/{self.date}"
+            )
         meals = respond.json()["meals"]
 
         for meal in meals:
