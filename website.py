@@ -9,7 +9,7 @@ def generate_site():
     def headline(s):
         return f"<b>{s}</b><br>"
 
-    def generate_string(date):
+    def generate_string(date, day=None):
         def generate_substring(meals):
             result = ""
             for meal in meals:
@@ -19,7 +19,10 @@ def generate_site():
         string = ""
 
         meals = Meals(101, date)
-        string += f"<h3>Mensa 1 am {date.strftime('%d.%m.%Y')}</h3>"
+        if day == None:
+            string += f"<h1>Mensa 1 am {date.strftime('%d.%m.%Y')} ({date.strftime('%A')})</h1>"
+        else:
+            string += f"<h1>Mensa 1 am {date.strftime('%d.%m.%Y')} ({day})</h1>"
         string += headline("Hauptgericht")
         string += generate_substring(meals=meals.main_meal)
         string += headline("Beilage")
@@ -33,13 +36,17 @@ def generate_site():
 
     string = "<br><br>"
     today = datetime.date.today()
-    string += generate_string(today)
-    string += line()
-    string += generate_string(today + datetime.timedelta(days=1))
-    string += line()
-    string += generate_string(today + datetime.timedelta(days=2))
-    string += line()
-    string += generate_string(today + datetime.timedelta(days=3))
+    for day in range(6):
+        if day != 0:
+            string += line()
+        if day == 0:
+            string += generate_string(today + datetime.timedelta(days=day), "Heute")
+            continue
+        if day == 1:
+            string += generate_string(today + datetime.timedelta(days=day), "Morgen")
+            continue
+        string += generate_string(today + datetime.timedelta(days=day))
+
     return string
 
 
