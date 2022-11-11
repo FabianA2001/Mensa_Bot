@@ -5,7 +5,10 @@ import datetime
 app = Flask("")
 
 
-def generate_site():
+ids = {1: 101, 2: 105}
+
+
+def generate_site(Mensa):
     def headline(s):
         return f"<b>{s}</b><br>"
 
@@ -18,14 +21,14 @@ def generate_site():
 
         string = ""
 
-        meals = Meals(101, date)
+        meals = Meals(ids[Mensa], date)
         if meals.main_meal == []:
             return ""
 
         if day == None:
-            string += f"<h1>Mensa 1 am {date.strftime('%d.%m.%Y')} ({date.strftime('%A')})</h1>"
+            string += f"<h1>Mensa {Mensa} am {date.strftime('%d.%m.%Y')} ({date.strftime('%A')})</h1>"
         else:
-            string += f"<h1>Mensa 1 am {date.strftime('%d.%m.%Y')} ({day})</h1>"
+            string += f"<h1>Mensa {Mensa} am {date.strftime('%d.%m.%Y')} ({day})</h1>"
         string += headline("Hauptgericht")
         string += generate_substring(meals=meals.main_meal)
         string += headline("Beilage")
@@ -51,7 +54,7 @@ def generate_site():
 
 @app.route("/")
 def home():
-    return generate_site()
+    return generate_site(1) + generate_site(2)
 
 
 def run():
