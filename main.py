@@ -1,10 +1,10 @@
 from flask import Flask
 from Meals import Meals
 import datetime
+import locale
+
 
 app = Flask("")
-
-
 ids = {1: 101, 2: 105}
 
 
@@ -20,7 +20,7 @@ def generate_site(Mensa):
             return result
 
         string = ""
-
+        locale.setlocale(locale.LC_TIME, "sv_SE")
         meals = Meals(ids[Mensa], date)
         if meals.main_meal == []:
             return ""
@@ -40,13 +40,13 @@ def generate_site(Mensa):
 
     string = "<br><br>"
     today = datetime.date.today()
-    for day in range(4):
-        if day == 0:
-            string += generate_string(today + datetime.timedelta(days=day), "Heute")
-            continue
-        if day == 1:
-            string += generate_string(today + datetime.timedelta(days=day), "Morgen")
-            continue
+    for day in range(6):
+        # if day == 0:
+        #     string += generate_string(today + datetime.timedelta(days=day), "Heute")
+        #     continue
+        # if day == 1:
+        #     string += generate_string(today + datetime.timedelta(days=day), "Morgen")
+        #     continue
         string += generate_string(today + datetime.timedelta(days=day))
 
     return string
@@ -61,4 +61,11 @@ def run():
     app.run(host="localhost", port=8080)
 
 
-run()
+if __name__ == "__main__":
+    run()
+
+    # day = 0
+
+    # today = datetime.date.today()
+    # date = today + datetime.timedelta(days=day)
+    # print({date.strftime("%A")})
