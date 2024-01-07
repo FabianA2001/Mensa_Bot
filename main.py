@@ -5,7 +5,8 @@ import locale
 
 
 app = Flask("")
-ids = {1: 101, 2: 105}
+ids = {1: 102, 2: 105}
+day_names = {"Monday":"Montag", "Tuesday":"Dienstag", "Wednesday" : "Mittwoch", "Thursday":"Donnerstag", "Friday":"Freitag"}
 
 
 def generate_site(Mensa):
@@ -20,15 +21,14 @@ def generate_site(Mensa):
             return result
 
         string = ""
-        locale.setlocale(locale.LC_TIME, "sv_SE")
         meals = Meals(ids[Mensa], date)
         if meals.main_meal == []:
             return ""
 
         if day == None:
-            string += f"<h1>Mensa {Mensa} am {date.strftime('%d.%m.%Y')} ({date.strftime('%A')})</h1>"
+            string += f"<h1>Mensa {Mensa} am {date.strftime('%d.%m.%Y')} ({day_names[date.strftime('%A')]})</h1>"
         else:
-            string += f"<h1>Mensa {Mensa} am {date.strftime('%d.%m.%Y')} ({day})</h1>"
+            string += f"<h1>Mensa {Mensa} am {date.strftime('%d.%m.%Y')} ({day_names[day]})</h1>"
         string += headline("Hauptgericht")
         string += generate_substring(meals=meals.main_meal)
         string += headline("Beilage")
@@ -41,12 +41,6 @@ def generate_site(Mensa):
     string = "<br><br>"
     today = datetime.date.today()
     for day in range(6):
-        # if day == 0:
-        #     string += generate_string(today + datetime.timedelta(days=day), "Heute")
-        #     continue
-        # if day == 1:
-        #     string += generate_string(today + datetime.timedelta(days=day), "Morgen")
-        #     continue
         string += generate_string(today + datetime.timedelta(days=day))
 
     return string
