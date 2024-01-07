@@ -1,5 +1,5 @@
 from flask import Flask
-from src.Meals import Meals
+from Meals import Meals
 import datetime
 
 
