@@ -1,7 +1,6 @@
 from flask import Flask
 from Meals import Meals
 import datetime
-import locale
 
 
 app = Flask("")
@@ -51,15 +50,7 @@ def home():
     return generate_site(1) + generate_site(2)
 
 
-def run():
-    app.run(host="localhost", port=8080)
-
 
 if __name__ == "__main__":
-    run()
+    app.run(host="localhost", port=8080)
 
-    # day = 0
-
-    # today = datetime.date.today()
-    # date = today + datetime.timedelta(days=day)
-    # print({date.strftime("%A")})
