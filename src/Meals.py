@@ -3,9 +3,10 @@ import datetime
 
 
 class Meal:
-    def __init__(self, name, price) -> None:
+    def __init__(self, name, price, time) -> None:
         self.name = name
         self.price = price
+        self.time = time
 
 
 class Meals:
@@ -16,6 +17,9 @@ class Meals:
         self.dessert_meal = []
         self.date = date
         self.get_data()
+
+    def jsonMealToClass(self,meal):
+        return Meal(meal["name"], meal["price"]["student"],meal["time"])       
 
     def get_data(self):
         if self.date == None:
@@ -30,13 +34,11 @@ class Meals:
 
         for meal in meals:
             if (meal["lane"]["id"]) in [90]:
-                self.dessert_meal.append(Meal(meal["name"], meal["price"]["student"]))
+                self.dessert_meal.append(self.jsonMealToClass(meal))
             elif (meal["lane"]["id"]) in [160, 110]:
-                self.supplement_meal.append(
-                    Meal(meal["name"], meal["price"]["student"])
-                )
+                self.supplement_meal.append(self.jsonMealToClass(meal))
             else:
-                self.main_meal.append(Meal(meal["name"], meal["price"]["student"]))
+                self.main_meal.append(self.jsonMealToClass(meal))
 
 
 if __name__ == "__main__":

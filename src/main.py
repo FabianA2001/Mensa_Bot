@@ -16,7 +16,7 @@ def generate_site(Mensa):
         def generate_substring(meals):
             result = ""
             for meal in meals:
-                result += f"{meal.name}:<i>{meal.price}€</i><br>"
+                result += f"{meal.name}:<i>{meal.price}€</i> {meal.time}<br>"
             return result
 
         string = ""
