@@ -8,6 +8,10 @@ class Meal:
         self.price = price
         self.time = time
 
+    def __lt__(self, other):
+        return self.time == "noon" and other.time == "evening"
+
+
 
 class Meals:
     def __init__(self, id, date=None) -> None:

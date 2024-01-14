@@ -27,16 +27,20 @@ def generate_site(Mensa):
         if meals.main_meal == []:
             return ""
 
+        meals.main_meal.sort();
+
         if day == None:
             string += f"<h1>Mensa {Mensa} am {date.strftime('%d.%m.%Y')} ({day_names[date.strftime('%A')]})</h1>"
         else:
             string += f"<h1>Mensa {Mensa} am {date.strftime('%d.%m.%Y')} ({day_names[day]})</h1>"
         string += headline("Hauptgericht")
-        string += generate_substring(meals=meals.main_meal, displayTime=True)
+        string += generate_substring(meals=[i for i in meals.main_meal if i.time == "noon"])
         string += headline("Beilage")
         string += generate_substring(meals=meals.supplement_meal)
         string += headline("Nachtisch")
         string += generate_substring(meals=meals.dessert_meal)
+        string += headline("Abends")
+        string += generate_substring(meals=[i for i in meals.main_meal if i.time == "evening"])
         string += "<hr><br><br><br><br>"
         return string
 
