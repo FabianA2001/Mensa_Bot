@@ -39,8 +39,9 @@ def generate_site(Mensa):
         string += generate_substring(meals=meals.supplement_meal)
         string += headline("Nachtisch")
         string += generate_substring(meals=meals.dessert_meal)
-        string += headline("Abends")
-        string += generate_substring(meals=[i for i in meals.main_meal if i.time == "evening"])
+        if("evening" in [i.time for i in meals.main_meal]):
+            string += headline("Abends")
+            string += generate_substring(meals=[i for i in meals.main_meal if i.time == "evening"])
         string += "<hr><br><br><br><br>"
         return string
 
