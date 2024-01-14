@@ -13,10 +13,13 @@ def generate_site(Mensa):
         return f"<b>{s}</b><br>"
 
     def generate_string(date, day=None):
-        def generate_substring(meals):
+        def generate_substring(meals, displayTime=False):
             result = ""
             for meal in meals:
-                result += f"{meal.name}:<i>{meal.price}€</i> {meal.time}<br>"
+                if(displayTime):
+                    result += f"{meal.name}:<i>{meal.price}€</i> {meal.time}<br>"
+                else:
+                    result += f"{meal.name}:<i>{meal.price}€</i><br>"
             return result
 
         string = ""
@@ -29,7 +32,7 @@ def generate_site(Mensa):
         else:
             string += f"<h1>Mensa {Mensa} am {date.strftime('%d.%m.%Y')} ({day_names[day]})</h1>"
         string += headline("Hauptgericht")
-        string += generate_substring(meals=meals.main_meal)
+        string += generate_substring(meals=meals.main_meal, displayTime=True)
         string += headline("Beilage")
         string += generate_substring(meals=meals.supplement_meal)
         string += headline("Nachtisch")
