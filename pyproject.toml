@@ -1,0 +1,11 @@
+[project]
+name = "Mensa_Bot"
+version = "1.0.0"
+
+dependencies = [
+  "flask",
+  "requests",
+]
+
+[project.scripts]
+mensaapi = "mensaapi:main"

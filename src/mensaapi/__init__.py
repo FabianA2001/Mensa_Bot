@@ -1,5 +1,5 @@
 from flask import Flask
-from Meals import Meals
+from .Meals import Meals
 import datetime
 
 
@@ -57,8 +57,6 @@ def generate_site(Mensa):
 def home():
     return generate_site(1) + generate_site(2)
 
-
-
-if __name__ == "__main__":
+def main():
     app.run(host="0.0.0.0", port=8080)
 
